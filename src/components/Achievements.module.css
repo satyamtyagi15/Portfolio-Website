@@ -1,0 +1,140 @@
+.achievements {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 0;
+}
+.achievements h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #00f0ff, #b026ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.subheading {
+  color: #a0b0d0;
+  margin-bottom: 2rem;
+}
+.statsRow {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background: rgba(10,8,32,0.5);
+  backdrop-filter: blur(8px);
+  border-radius: 40px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(0,240,255,0.2);
+}
+.statBlock {
+  text-align: center;
+  font-size: 1rem;
+  color: #ccd6f6;
+}
+.statBlock span {
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #00f0ff, #b026ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.sectionHeader {
+  font-size: 1.6rem;
+  margin: 2rem 0 1rem;
+  border-left: 4px solid #00f0ff;
+  padding-left: 1rem;
+  color: #00f0ff;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.8rem;
+  margin-bottom: 2rem;
+}
+.achCard {
+  background: rgba(10,8,32,0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 28px;
+  padding: 1.5rem;
+  position: relative;
+  border: 1px solid rgba(0,240,255,0.3);
+  transition: 0.3s;
+}
+.achCard:hover {
+  border-color: #00f0ff;
+  transform: translateY(-6px);
+  box-shadow: 0 0 20px rgba(0,240,255,0.2);
+}
+.org {
+  color: #00f0ff;
+  font-size: 0.85rem;
+  margin: 0.3rem 0;
+}
+.tag {
+  display: inline-block;
+  background: rgba(0,240,255,0.2);
+  padding: 0.2rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  margin-top: 0.8rem;
+}
+.certsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+.certCard {
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(4px);
+  border-left: 3px solid #00f0ff;
+  padding: 0.8rem 1rem;
+  border-radius: 16px;
+  font-size: 0.9rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* add these at the end */
+.badgeGrid {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+.badgeImg {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px #00f0ff);
+  transition: transform 0.2s;
+}
+.badgeImg:hover {
+  transform: scale(1.05);
+}
+
+.badgeGrid {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+.badgeItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(0,240,255,0.05);
+  padding: 0.8rem;
+  border-radius: 20px;
+  transition: transform 0.2s;
+}
+.badgeItem:hover {
+  transform: scale(1.05);
+  background: rgba(0,240,255,0.15);
+}
+.badgeItem span {
+  font-size: 0.7rem;
+  font-family: 'Orbitron', monospace;
+  color: #a0b0d0;
+}

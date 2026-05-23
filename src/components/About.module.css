@@ -1,0 +1,158 @@
+.about {
+  width: 100%;
+  animation: fadeSlideUp 0.6s ease;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.profileSection {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+  background: rgba(10, 8, 32, 0.65);
+  backdrop-filter: blur(12px);
+  border-radius: 32px;
+  padding: 2rem;
+  border: 1px solid rgba(0,240,255,0.3);
+}
+.imageFrame {
+  position: relative;
+  width: 180px;
+  height: 180px;
+}
+.profileImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #00f0ff;
+  box-shadow: 0 0 20px rgba(0,240,255,0.5);
+}
+.neonRing {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  border-radius: 50%;
+  border: 2px dashed #00f0ff;
+  animation: spin 8s linear infinite;
+  pointer-events: none;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+.bioText {
+  flex: 1;
+}
+.sectionTitle {
+  font-size: 1.8rem;
+  background: linear-gradient(135deg, #00f0ff, #b026ff);
+  display: inline-block;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 0.5rem;
+}
+.socialMiniAbout {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.socialMiniAbout a {
+  color: #00f0ff;
+  text-decoration: none;
+  background: rgba(0,240,255,0.1);
+  padding: 0.3rem 1rem;
+  border-radius: 40px;
+  font-size: 0.9rem;
+  transition: 0.2s;
+}
+.socialMiniAbout a:hover {
+  background: rgba(0,240,255,0.3);
+  box-shadow: 0 0 8px #00f0ff;
+}
+.skillsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+.card {
+  background: rgba(10, 8, 32, 0.65);
+  backdrop-filter: blur(12px);
+  border-radius: 28px;
+  padding: 1.5rem;
+  border: 1px solid rgba(0,240,255,0.25);
+  transition: all 0.25s;
+}
+.card:hover {
+  border-color: #00f0ff;
+  box-shadow: 0 8px 24px rgba(0,240,255,0.2);
+  transform: translateY(-4px);
+}
+.card h3 {
+  margin-bottom: 0.8rem;
+  color: #00f0ff;
+}
+.skillList {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #ccd6f6;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+@media (max-width: 700px) {
+  .profileSection { flex-direction: column; text-align: center; }
+}
+
+.sectionCard {
+  background: rgba(10, 8, 32, 0.65);
+  backdrop-filter: blur(12px);
+  border-radius: 28px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(0,240,255,0.25);
+}
+.expItem {
+  margin: 1rem 0;
+  padding: 0.8rem;
+  border-left: 2px solid #00f0ff;
+}
+.expItem strong {
+  color: #00f0ff;
+}
+.expItem span {
+  float: right;
+  color: #4dffb8;
+  font-size: 0.8rem;
+}
+.expItem p {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #ccd6f6;
+}
+/* Add these at the end of the file */
+
+.extraGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 0.5rem;
+}
+.list li {
+  margin: 0.5rem 0;
+  padding-left: 1rem;
+  border-left: 2px solid #00f0ff;
+  font-size: 0.9rem;
+  color: #ccd6f6;
+}

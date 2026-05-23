@@ -1,0 +1,314 @@
+.home {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.hero {
+  width: 100%;
+  max-width: 1300px;
+  padding: 2rem;
+}
+
+.heroContent {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.textSection {
+  flex: 2;
+  min-width: 280px;
+}
+
+.visualSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  min-width: 280px;
+}
+
+.profileImageContainer {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #00f0ff;
+  box-shadow: 0 0 30px rgba(0,240,255,0.4);
+  background: rgba(0,0,0,0.3);
+}
+
+.profilePic {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profileGlow {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,240,255,0.2), transparent 70%);
+  pointer-events: none;
+  animation: pulseGlow 3s infinite alternate;
+}
+
+@keyframes pulseGlow {
+  0% { opacity: 0.5; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1.05); }
+}
+
+.cubeContainer {
+  width: 280px;
+  height: 280px;
+  filter: drop-shadow(0 0 20px #00f0ff);
+}
+
+.glowingOrb {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(0,240,255,0.15) 0%, rgba(176,38,255,0.1) 70%);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  filter: blur(90px);
+  z-index: -1;
+  animation: pulse 6s infinite alternate;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.4; transform: translate(-50%, -50%) scale(0.9);}
+  100% { opacity: 0.9; transform: translate(-50%, -50%) scale(1.2);}
+}
+
+.name {
+  font-size: 3.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #fff, #00f0ff, #b026ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 1rem;
+  letter-spacing: -1px;
+}
+
+.highlight {
+  background: linear-gradient(135deg, #00f0ff, #b026ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.taglineWrapper {
+  margin-bottom: 1rem;
+}
+
+.typedText {
+  font-size: 1.3rem;
+  font-weight: 500;
+  background: linear-gradient(120deg, #ccd6f6, #a0b0d0);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: 1px;
+}
+
+.waveUnderline {
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #00f0ff, #b026ff);
+  margin: 1rem auto 1rem 0;
+  border-radius: 4px;
+  animation: waveMove 2s infinite;
+}
+
+@keyframes waveMove {
+  0% { width: 80px; opacity: 0.6; }
+  50% { width: 140px; opacity: 1; }
+  100% { width: 80px; opacity: 0.6; }
+}
+
+.bio {
+  font-size: 1rem;
+  color: #b0c4de;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.stats {
+  display: flex;
+  justify-content: flex-start;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(4px);
+  padding: 0.5rem 1rem;
+  border-radius: 40px;
+  border: 1px solid rgba(0,240,255,0.3);
+}
+
+.statNumber {
+  font-size: 1.6rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #00f0ff, #b026ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.statLabel {
+  font-size: 0.7rem;
+  color: #a0b0d0;
+}
+
+.openToWork {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(0,240,255,0.1);
+  border-radius: 40px;
+  display: inline-block;
+  font-size: 0.85rem;
+  border-left: 3px solid #4dffb8;
+}
+
+.otwBadge {
+  color: #4dffb8;
+  font-weight: bold;
+  font-family: 'Orbitron', monospace;
+}
+
+/* ... keep all existing styles (up to .otwBadge) then add: */
+
+.sectionTitle2 {
+  font-size: 1.6rem;
+  margin: 2rem 0 1rem;
+  color: #00f0ff;
+  border-left: 4px solid #b026ff;
+  padding-left: 1rem;
+  font-family: 'Orbitron', monospace;
+}
+
+.services, .techStack, .highlights, .cta {
+  margin-top: 2rem;
+}
+
+.serviceGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.2rem;
+  margin: 1rem 0;
+}
+
+.serviceCard {
+  background: rgba(10, 8, 32, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0,240,255,0.3);
+  border-radius: 24px;
+  padding: 1.2rem;
+  text-align: center;
+  transition: all 0.3s;
+}
+.serviceCard:hover {
+  transform: translateY(-5px);
+  border-color: #00f0ff;
+  box-shadow: 0 0 20px rgba(0,240,255,0.2);
+}
+.serviceIcon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+.serviceCard h4 {
+  color: #4dffb8;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+.serviceCard p {
+  font-size: 0.8rem;
+  color: #ccd6f6;
+}
+
+.techBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin: 1rem 0;
+}
+.techBadge {
+  background: rgba(0,240,255,0.1);
+  border: 1px solid rgba(0,240,255,0.4);
+  border-radius: 40px;
+  padding: 0.4rem 1rem;
+  font-size: 0.8rem;
+  font-family: 'JetBrains Mono', monospace;
+  transition: 0.2s;
+}
+.techBadge:hover {
+  background: rgba(0,240,255,0.2);
+  transform: scale(1.05);
+}
+
+.highlightList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  background: rgba(0,0,0,0.3);
+  border-radius: 20px;
+  padding: 1rem;
+}
+.highlightList div {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 0.9rem;
+}
+.highlightList span {
+  font-size: 1.2rem;
+}
+
+.cta {
+  text-align: center;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 900px) {
+  .serviceGrid { grid-template-columns: 1fr; }
+  .sectionTitle2 { font-size: 1.3rem; }
+} 
+
+@media (max-width: 900px) {
+  .heroContent { flex-direction: column; text-align: center; }
+  .waveUnderline { margin-left: auto; margin-right: auto; }
+  .socialLinks { justify-content: center; }
+  .stats { justify-content: center; }
+  .openToWork { margin-left: auto; margin-right: auto; }
+  .name { font-size: 2.5rem; }
+  .typedText { font-size: 1rem; }
+}
