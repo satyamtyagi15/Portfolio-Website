@@ -12,14 +12,16 @@
   transition: margin-left 0.3s ease;
   position: relative;
   z-index: 10;
+  /* Let content use full available width */
+  width: 100%;
 }
 
-/* When sidebar is collapsed on desktop, reduce margin */
+/* When sidebar is collapsed on desktop, remove left margin */
 body.sidebar-collapsed .mainContent {
   margin-left: 0;
 }
 
-/* Mobile: no margin */
+/* Mobile: no left margin, content stays full width */
 @media (max-width: 768px) {
   .mainContent {
     margin-left: 0;
