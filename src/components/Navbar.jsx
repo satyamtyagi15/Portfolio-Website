@@ -5,12 +5,42 @@ import styles from './Navbar.module.css';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (window.innerWidth > 768) {
+      if (isCollapsed) {
+        document.body.classList.add('sidebar-collapsed');
+      } else {
+        document.body.classList.remove('sidebar-collapsed');
+      }
+    }
+    return () => {
+      document.body.classList.remove('sidebar-collapsed');
+    };
+  }, [isCollapsed]);
+
+  const toggleSidebar = () => {
+    if (window.innerWidth <= 768) {
+      setIsOpen(!isOpen);
+    } else {
+      setIsCollapsed(!isCollapsed);
+    }
+  };
+
+  const closeSidebar = () => {
+    if (window.innerWidth <= 768) {
+      setIsOpen(false);
+    } else {
+      setIsCollapsed(true);
+    }
+  };
 
   const links = [
     { to: '/', label: 'Home', icon: '🏠' },
@@ -23,16 +53,20 @@ const Navbar = () => {
   return (
     <>
       <button 
-        className={`${styles.hamburger} ${isOpen ? styles.open : ''}`} 
-        onClick={() => setIsOpen(!isOpen)}
+        className={`${styles.hamburger} ${(isOpen || (window.innerWidth > 768 && !isCollapsed)) ? styles.open : ''}`}
+        onClick={toggleSidebar}
       >
         <span></span><span></span><span></span>
       </button>
       
-      <nav className={`${styles.sidebar} ${isOpen ? styles.mobileOpen : ''} ${scrolled ? styles.scrolled : ''}`}>
+      <nav className={`${styles.sidebar} 
+        ${isOpen ? styles.mobileOpen : ''} 
+        ${isCollapsed ? styles.collapsed : ''}
+        ${scrolled ? styles.scrolled : ''}`}
+      >
         <button 
           className={styles.closeBtn} 
-          onClick={() => setIsOpen(false)}
+          onClick={closeSidebar}
           aria-label="Close menu"
         >
           ✕
@@ -48,7 +82,7 @@ const Navbar = () => {
               <NavLink 
                 to={link.to} 
                 className={({ isActive }) => isActive ? styles.active : ''}
-                onClick={() => setIsOpen(false)}
+                onClick={closeSidebar}
               >
                 <span className={styles.icon}>{link.icon}</span>
                 <span className={styles.label}>{link.label}</span>
