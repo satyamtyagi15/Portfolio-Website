@@ -10,7 +10,7 @@ const Achievements = () => {
 
       <div className={styles.statsRow}>
         <div className={styles.statBlock}><span>9+</span><br/>Production Projects</div>
-        <div className={styles.statBlock}><span>2</span><br/>Hackathons Won</div>
+        <div className={styles.statBlock}><span>2x</span><br/>Hackathons Won</div>
         <div className={styles.statBlock}><span>10+</span><br/>Languages / Stacks</div>
         <div className={styles.statBlock}><span>1</span><br/>YouTube Channel</div>
       </div>
