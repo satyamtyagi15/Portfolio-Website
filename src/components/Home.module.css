@@ -8,7 +8,7 @@
 
 .hero {
   width: 100%;
-  max-width: 100%;
+  max-width: none;
   padding: 2rem;
 }
 
@@ -311,4 +311,10 @@
   .openToWork { margin-left: auto; margin-right: auto; }
   .name { font-size: 2.5rem; }
   .typedText { font-size: 1rem; }
+}
+
+@media (min-width: 1920px) {
+  .hero {
+    padding: 2rem 4rem;
+  }
 }

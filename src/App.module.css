@@ -8,23 +8,24 @@
 .mainContent {
   flex: 1;
   margin-left: 280px;
-  padding: 2rem 2rem 2rem 2rem;
+  padding: 2rem;
   transition: margin-left 0.3s ease;
   position: relative;
   z-index: 10;
-  /* Let content use full available width */
+  width: auto; /* let it stretch naturally */
+}
+
+/* When sidebar is collapsed on desktop, remove left margin – content expands to full viewport width */
+body.sidebar-collapsed .mainContent {
+  margin-left: 0;
   width: 100%;
 }
 
-/* When sidebar is collapsed on desktop, remove left margin */
-body.sidebar-collapsed .mainContent {
-  margin-left: 0;
-}
-
-/* Mobile: no left margin, content stays full width */
+/* Mobile: no left margin, adjust padding for hamburger */
 @media (max-width: 768px) {
   .mainContent {
     margin-left: 0;
-    padding: 5rem 1rem 2rem 1rem;
+    padding: 5rem 1rem 2rem;
+    width: 100%;
   }
 }
