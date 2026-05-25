@@ -6,28 +6,53 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 768);
 
+  // Handle scroll
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Handle window resize – update isDesktop and reset states
   useEffect(() => {
-    if (window.innerWidth > 768) {
-      if (isCollapsed) {
-        document.body.classList.add('sidebar-collapsed');
+    const handleResize = () => {
+      const desktop = window.innerWidth > 768;
+      setIsDesktop(desktop);
+      if (desktop) {
+        // On desktop, sidebar is open by default (not collapsed)
+        setIsCollapsed(false);
+        setIsOpen(false);
       } else {
-        document.body.classList.remove('sidebar-collapsed');
+        // On mobile, sidebar is closed by default
+        setIsOpen(false);
+        setIsCollapsed(false);
       }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Toggle body class for desktop sidebar state
+  useEffect(() => {
+    if (isDesktop) {
+      if (!isCollapsed) {
+        document.body.classList.add('sidebar-open');
+      } else {
+        document.body.classList.remove('sidebar-open');
+      }
+    } else {
+      // On mobile, sidebar is never "open" in the same sense – content always full width
+      document.body.classList.remove('sidebar-open');
     }
     return () => {
-      document.body.classList.remove('sidebar-collapsed');
+      document.body.classList.remove('sidebar-open');
     };
-  }, [isCollapsed]);
+  }, [isCollapsed, isDesktop]);
 
   const toggleSidebar = () => {
-    if (window.innerWidth <= 768) {
+    if (!isDesktop) {
       setIsOpen(!isOpen);
     } else {
       setIsCollapsed(!isCollapsed);
@@ -35,7 +60,7 @@ const Navbar = () => {
   };
 
   const closeSidebar = () => {
-    if (window.innerWidth <= 768) {
+    if (!isDesktop) {
       setIsOpen(false);
     } else {
       setIsCollapsed(true);
@@ -53,15 +78,15 @@ const Navbar = () => {
   return (
     <>
       <button 
-        className={`${styles.hamburger} ${(isOpen || (window.innerWidth > 768 && !isCollapsed)) ? styles.open : ''}`}
+        className={`${styles.hamburger} ${((!isDesktop && isOpen) || (isDesktop && !isCollapsed)) ? styles.open : ''}`}
         onClick={toggleSidebar}
       >
         <span></span><span></span><span></span>
       </button>
       
       <nav className={`${styles.sidebar} 
-        ${isOpen ? styles.mobileOpen : ''} 
-        ${isCollapsed ? styles.collapsed : ''}
+        ${!isDesktop && isOpen ? styles.mobileOpen : ''} 
+        ${isDesktop && isCollapsed ? styles.collapsed : ''}
         ${scrolled ? styles.scrolled : ''}`}
       >
         <button 
@@ -92,6 +117,7 @@ const Navbar = () => {
           ))}
         </ul>
         <div className={styles.socialMini}>
+          {/* ... your social icons (unchanged) ... */}
           <a href="https://github.com/satyamtyagi15" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
             <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
               <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.387.6.113.82-.26.82-.58 0-.287-.01-1.05-.015-2.06-3.338.726-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.082-.73.082-.73 1.205.085 1.84 1.237 1.84 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.468-2.38 1.235-3.22-.123-.3-.535-1.52.117-3.16 0 0 1.008-.322 3.3 1.23.96-.267 1.98-.4 3-.405 1.02.005 2.04.138 3 .405 2.29-1.552 3.297-1.23 3.297-1.23.653 1.64.24 2.86.118 3.16.768.84 1.233 1.91 1.233 3.22 0 4.61-2.804 5.62-5.476 5.92.43.37.824 1.102.824 2.22 0 1.602-.015 2.894-.015 3.287 0 .322.216.698.83.578C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/>

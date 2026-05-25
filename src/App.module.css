@@ -7,25 +7,23 @@
 
 .mainContent {
   flex: 1;
-  margin-left: 280px;
+  margin-left: 0;      /* default no margin, will be added when sidebar open */
   padding: 2rem;
   transition: margin-left 0.3s ease;
   position: relative;
   z-index: 10;
-  width: auto; /* let it stretch naturally */
-}
-
-/* When sidebar is collapsed on desktop, remove left margin – content expands to full viewport width */
-body.sidebar-collapsed .mainContent {
-  margin-left: 0;
   width: 100%;
 }
 
-/* Mobile: no left margin, adjust padding for hamburger */
+/* When sidebar is open on desktop (class added by Navbar) */
+body.sidebar-open .mainContent {
+  margin-left: 280px;
+}
+
+/* Mobile: never add margin, content always full width */
 @media (max-width: 768px) {
   .mainContent {
     margin-left: 0;
     padding: 5rem 1rem 2rem;
-    width: 100%;
   }
 }

@@ -6,7 +6,7 @@
 }
 
 .container {
-  max-width: 1000px;  /* increased from 800px to fill more space */
+  max-width: 1200px;  /* wider, still centered for readability */
   width: 100%;
   background: rgba(10, 8, 32, 0.7);
   backdrop-filter: blur(12px);
@@ -14,8 +14,10 @@
   padding: 2rem;
   border: 1px solid rgba(0, 240, 255, 0.4);
   text-align: center;
-  margin: 0 auto;
+  margin: 0 1rem; /* adds small side spacing on very narrow screens */
 }
+
+/* Rest of the file remains identical – only the .container block above changed */
 
 .container h2 {
   font-size: 2rem;
