@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import styles from './Navbar.module.css';
 
 const Navbar = () => {
@@ -29,12 +28,16 @@ const Navbar = () => {
       >
         <span></span><span></span><span></span>
       </button>
-      <motion.nav 
-        className={`${styles.sidebar} ${isOpen ? styles.mobileOpen : ''} ${scrolled ? styles.scrolled : ''}`}
-        initial={{ x: -280 }}
-        animate={{ x: 0 }}
-        transition={{ type: 'spring', stiffness: 100 }}
-      >
+      
+      <nav className={`${styles.sidebar} ${isOpen ? styles.mobileOpen : ''} ${scrolled ? styles.scrolled : ''}`}>
+        <button 
+          className={styles.closeBtn} 
+          onClick={() => setIsOpen(false)}
+          aria-label="Close menu"
+        >
+          ✕
+        </button>
+
         <div className={styles.logo}>
           <span className={styles.logoText}>ST</span>
           <div className={styles.logoGlow}></div>
@@ -71,7 +74,7 @@ const Navbar = () => {
             </svg>
           </a>
         </div>
-      </motion.nav>
+      </nav>
     </>
   );
 };
