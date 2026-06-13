@@ -7,10 +7,30 @@ import About from './components/About';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Achievements from './components/Achievements';
+import MagicalBackground from './components/MagicalBackground';
 import styles from './App.module.css';
 
 function App() {
   useEffect(() => {
+    // Scroll Reveal Observer
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e, i) => {
+          if (e.isIntersecting) {
+            setTimeout(() => {
+              e.target.classList.add("visible");
+            }, i * 70);
+          }
+        });
+      },
+      { threshold: 0.08 }
+    );
+    
+    // Select all elements with reveal class and observe
+    setTimeout(() => {
+      document.querySelectorAll(".reveal").forEach((el) => obs.observe(el));
+    }, 500); // slight delay to allow router render
+
     // Mouse follow glow effect
     const glow = document.createElement('div');
     glow.className = 'mouse-glow';
@@ -23,26 +43,17 @@ function App() {
     return () => {
       window.removeEventListener('mousemove', moveGlow);
       if (glow) glow.remove();
+      obs.disconnect();
     };
   }, []);
 
   return (
     <Router>
       <div className={styles.app}>
-        {/* Aurora Background */}
-        <div className="aurora-bg">
-          <div className="aurora-blob blob1"></div>
-          <div className="aurora-blob blob2"></div>
-          <div className="aurora-blob blob3"></div>
-          <div className="lightning"></div>
-          <div className="city-overlay"></div>
-        </div>
-        {/* Grid Overlay */}
+        {/* The Cursed Video Background replaces MagicalBackground */}
+        <MagicalBackground />
+        {/* Grid Overlay for subtle texture */}
         <div className="grid-overlay"></div>
-        {/* 50 Floating Particles */}
-        <div className="floating-particles">
-          {[...Array(50)].map((_, i) => <div key={i} className="particle"></div>)}
-        </div>
         
         <Navbar />
         <main className={styles.mainContent}>

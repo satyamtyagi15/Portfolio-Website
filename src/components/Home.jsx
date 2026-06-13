@@ -146,7 +146,7 @@ const Home = () => {
         </div>
 
         {/* New: What I Do Section */}
-        <div className={styles.services}>
+        <div className={`${styles.services} reveal`}>
           <h3 className={styles.sectionTitle2}>⚡ What I Do</h3>
           <div className={styles.serviceGrid}>
             <div className={styles.serviceCard}>
@@ -173,7 +173,7 @@ const Home = () => {
         </div>
 
         {/* Tech Stack Badges */}
-        <div className={styles.techStack}>
+        <div className={`${styles.techStack} reveal`}>
           <h3 className={styles.sectionTitle2}>🧰 Tech Stack I Use</h3>
           <div className={styles.techBadges}>
             {["React","Node.js","Express","MongoDB","Next.js","TypeScript","Go","Python","Solidity","Tailwind","Docker","GraphQL"].map(tech => (
@@ -183,7 +183,7 @@ const Home = () => {
         </div>
 
         {/* Recent Highlights */}
-        <div className={styles.highlights}>
+        <div className={`${styles.highlights} reveal`}>
           <h3 className={styles.sectionTitle2}>🏅 Recent Highlights</h3>
           <div className={styles.highlightList}>
             <div><span>🏆</span> RunnerUp @ HackIndia AI & DeepTech 2025</div>
@@ -194,7 +194,7 @@ const Home = () => {
         </div>
 
         {/* CTA Button */}
-        <div className={styles.cta}>
+        <div className={`${styles.cta} reveal`}>
           <a href="/contact" className="neon-btn" style={{ padding: '0.8rem 2.5rem', fontSize: '1.1rem' }}>📩 Let’s Build Something →</a>
         </div>
       </div>
