@@ -1,36 +1,63 @@
 import React from 'react';
+import { Tilt } from 'react-tilt';
 import styles from './ProjectCard.module.css';
+import SciFiObject from './SciFiObject';
 
-const ProjectCard = ({ project }) => {
-  const embedUrl = `https://www.youtube.com/embed/${project.videoId}`;
+const ProjectCard = ({ project, index }) => {
+  const isEven = index % 2 === 0;
+  // Use high quality YouTube thumbnail
+  const imgUrl = `https://img.youtube.com/vi/${project.videoId}/maxresdefault.jpg`;
+
   return (
-    <div className={styles.card}>
-      <div className={styles.videoWrapper}>
-        <iframe 
-          src={embedUrl}
-          title={project.title}
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
-      </div>
-      <div className={styles.content}>
-        <h3>{project.title}</h3>
-        <p className={styles.category}>{project.category}</p>
-        <p className={styles.fullDesc}>{project.fullDesc}</p>
-        <div className={styles.tech}>{project.tech}</div>
-        <ul className={styles.highlights}>
-          {project.highlights.map((h, i) => <li key={i}>✨ {h}</li>)}
-        </ul>
-        <div className={styles.links}>
-          <a href={project.githubLink} target="_blank" rel="noopener noreferrer" className={styles.repoLink}>
-            📁 GitHub Repository →
-          </a>
-          <a href={project.youtubeUrl} target="_blank" rel="noopener noreferrer" className={styles.youtubeLink}>
-            ▶️ Watch on YouTube
-          </a>
+    <div className={`${styles.timelineWrapper} ${isEven ? styles.even : styles.odd}`}>
+      
+      {/* Timeline Dot */}
+      <div className={styles.timelineDot}></div>
+
+      {/* Content Container */}
+      <Tilt options={{ max: 15, scale: 1.02, speed: 400, perspective: 1000 }} className={styles.tiltContainer}>
+        <div className={styles.card}>
+          
+          <div className={styles.imageWrapper}>
+            <img src={imgUrl} alt={project.title} className={styles.projectImg} />
+            <div className={styles.imageOverlay}>
+              <a href={project.youtubeUrl} target="_blank" rel="noopener noreferrer" className={styles.playBtn}>
+                <div className={styles.playIcon}>▶</div>
+                <span>Watch Video</span>
+              </a>
+            </div>
+            <div className={styles.floatingBadge}>{project.category.split('/')[0].trim()}</div>
+          </div>
+
+          <div className={styles.content}>
+            <h3 className={styles.title}>{project.title}</h3>
+            <p className={styles.category}>{project.category}</p>
+            <p className={styles.fullDesc}>{project.fullDesc}</p>
+            
+            <div className={styles.techStack}>
+              {project.tech.split(',').map((t, i) => (
+                <span key={i} className={styles.techTag}>#{t.trim()}</span>
+              ))}
+            </div>
+
+            <div className={styles.links}>
+              <a href={project.githubLink} target="_blank" rel="noopener noreferrer" className={styles.repoLink}>
+                📁 GitHub
+              </a>
+              <a href={project.youtubeUrl} target="_blank" rel="noopener noreferrer" className={styles.youtubeLink}>
+                ▶️ YouTube
+              </a>
+            </div>
+          </div>
+          
         </div>
+      </Tilt>
+
+      {/* 3D Sci-Fi Object on the empty side */}
+      <div className={styles.sciFiContainer}>
+        <SciFiObject index={index} />
       </div>
+
     </div>
   );
 };

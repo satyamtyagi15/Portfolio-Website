@@ -1,26 +1,95 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import * as THREE from 'three';
 import styles from './Achievements.module.css';
 
 const Achievements = () => {
-  return (
-    <motion.div className={styles.achievements} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-      <h2>Trophies, badges & receipts.</h2>
-      <p className={styles.subheading}>Recognition from hackathons, certifications I've earned along the way, and a few numbers that mark the journey so far.</p>
+  const containerRef = useRef(null);
 
-      <div className={styles.statsRow}>
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+    camera.position.z = 5;
+    
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setSize(200, 200);
+    renderer.setClearColor(0x000000, 0);
+    container.appendChild(renderer.domElement);
+    
+    const geometry = new THREE.TetrahedronGeometry(1.5, 0);
+    const edges = new THREE.EdgesGeometry(geometry);
+    const material = new THREE.LineBasicMaterial({ color: 0xffd700, linewidth: 2 });
+    const wireframe = new THREE.LineSegments(edges, material);
+    scene.add(wireframe);
+
+    const innerGeo = new THREE.TetrahedronGeometry(1.4, 0);
+    const innerMat = new THREE.MeshBasicMaterial({ color: 0xffd700, transparent: true, opacity: 0.2 });
+    const innerMesh = new THREE.Mesh(innerGeo, innerMat);
+    scene.add(innerMesh);
+    
+    let time = 0;
+    const animate = () => {
+      requestAnimationFrame(animate);
+      time += 0.01;
+      wireframe.rotation.y = time;
+      wireframe.rotation.z = time * 0.5;
+      innerMesh.rotation.y = time;
+      innerMesh.rotation.z = time * 0.5;
+      renderer.render(scene, camera);
+    };
+    animate();
+    
+    return () => {
+      renderer.dispose();
+      if (container && renderer.domElement) container.removeChild(renderer.domElement);
+    };
+  }, []);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.3, delayChildren: 0.3 }
+    },
+    exit: { opacity: 0, scale: 0.9, filter: "blur(15px)", transition: { duration: 0.5, ease: "easeInOut" } }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 100, scale: 0.8, rotateZ: -10, filter: "blur(15px)" },
+    show: { opacity: 1, y: 0, scale: 1, rotateZ: 0, filter: "blur(0px)", transition: { type: "spring", stiffness: 90, damping: 14, mass: 1 } }
+  };
+
+  return (
+    <motion.div 
+      className={styles.achievements} 
+      variants={containerVariants}
+      initial="hidden"
+      animate="show"
+      exit="exit"
+      style={{ perspective: 1000 }}
+    >
+      <div style={{ position: 'relative' }}>
+        <motion.h2 variants={itemVariants}>Trophies, badges & receipts.</motion.h2>
+        <div ref={containerRef} style={{ position: 'absolute', top: '-60px', right: '0px', pointerEvents: 'none', opacity: 0.8 }}></div>
+      </div>
+      <motion.p className={styles.subheading} variants={itemVariants}>Recognition from hackathons, certifications I've earned along the way, and a few numbers that mark the journey so far.</motion.p>
+
+      <motion.div className={styles.statsRow} variants={itemVariants}>
         <div className={styles.statBlock}><span>9+</span><br/>Production Projects</div>
         <div className={styles.statBlock}><span>2x</span><br/>Hackathons Won</div>
         <div className={styles.statBlock}><span>10+</span><br/>Languages / Stacks</div>
         <div className={styles.statBlock}><span>1</span><br/>YouTube Channel</div>
-      </div>
+      </motion.div>
 
-      <h3 className={styles.sectionHeader}>🏆 Hackathon Wins & Roles</h3>
-      <div className={styles.grid}>
+      <motion.h3 className={styles.sectionHeader} variants={itemVariants}>🏆 Hackathon Wins & Roles</motion.h3>
+      <motion.div className={styles.grid} variants={itemVariants}>
         <div className={styles.achCard}>
           <h3>HackIndia AI & DeepTech — RunnerUp</h3>
           <p className={styles.org}>HackIndia · 2025</p>
-          <p>Deep tech hackathon focusing on AI & Web3. Built and pitched a full‑stack AI product, beating dozens of teams.</p>
+          <p>Deep tech hackathon focusing on AI & Modern Web. Built and pitched a full‑stack AI product, beating dozens of teams.</p>
           <span className={styles.tag}>RunnerUp</span>
         </div>
         <div className={styles.achCard}>
@@ -41,10 +110,10 @@ const Achievements = () => {
           <p>Selected as Contributor/Mentee. Participating in AI Agents and Open Source tracks.</p>
           <span className={styles.tag}>Open Source</span>
         </div>
-      </div>
+      </motion.div>
 
-      <h3 className={styles.sectionHeader}>📜 Certifications & Licenses</h3>
-      <div className={styles.certsGrid}>
+      <motion.h3 className={styles.sectionHeader} variants={itemVariants}>📜 Certifications & Licenses</motion.h3>
+      <motion.div className={styles.certsGrid} variants={itemVariants}>
         <div className={styles.certCard}>AI FOR ALL – Intel & CBSE (AI Aware) · 2025</div>
         <div className={styles.certCard}>React Hooks Crash Course – GreatStack</div>
         <div className={styles.certCard}>JavaScript Fundamentals – GreatStack</div>
@@ -60,10 +129,10 @@ const Achievements = () => {
         <div className={styles.certCard}>Power BI Practical Course 2026 – Udemy</div>
         <div className={styles.certCard}>Data Structures & Algorithms (C++/Java) – Self-Paced</div>
         <div className={styles.certCard}>Go for Backend Engineering – Self-Paced</div>
-      </div>
+      </motion.div>
 
-      <h3 className={styles.sectionHeader}>🏅 Badges & Recognition</h3>
-      <div className={styles.badgeGrid}>
+      <motion.h3 className={styles.sectionHeader} variants={itemVariants}>🏅 Badges & Recognition</motion.h3>
+      <motion.div className={styles.badgeGrid} variants={itemVariants}>
         <div className={styles.badgeItem}>
           <svg width="80" height="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
             <rect x="10" y="10" width="80" height="80" rx="15" fill="none" stroke="#00f0ff" strokeWidth="2" strokeDasharray="4 2"/>
@@ -101,7 +170,7 @@ const Achievements = () => {
           </svg>
           <span>Springboard</span>
         </div>
-      </div>
+      </motion.div>
     </motion.div>
   );
 };

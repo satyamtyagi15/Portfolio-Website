@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import About from './components/About';
@@ -8,11 +8,13 @@ import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Achievements from './components/Achievements';
 import MagicalBackground from './components/MagicalBackground';
+import StarsCanvas from './components/StarsCanvas';
 import styles from './App.module.css';
 
-function App() {
+function ScrollObserver() {
+  const location = useLocation();
+
   useEffect(() => {
-    // Scroll Reveal Observer
     const obs = new IntersectionObserver(
       (entries) => {
         entries.forEach((e, i) => {
@@ -26,46 +28,92 @@ function App() {
       { threshold: 0.08 }
     );
     
-    // Select all elements with reveal class and observe
     setTimeout(() => {
       document.querySelectorAll(".reveal").forEach((el) => obs.observe(el));
-    }, 500); // slight delay to allow router render
+    }, 100); 
 
-    // Mouse follow glow effect
-    const glow = document.createElement('div');
-    glow.className = 'mouse-glow';
-    document.body.appendChild(glow);
-    const moveGlow = (e) => {
-      glow.style.left = e.clientX + 'px';
-      glow.style.top = e.clientY + 'px';
+    return () => obs.disconnect();
+  }, [location.pathname]);
+
+  return null;
+}
+
+const AnimatedRoutes = () => {
+  const location = useLocation();
+  
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/achievements" element={<Achievements />} />
+      </Routes>
+    </AnimatePresence>
+  );
+};
+
+function CustomCursor() {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isHovering, setIsHovering] = useState(false);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePos({ x: e.clientX, y: e.clientY });
     };
-    window.addEventListener('mousemove', moveGlow);
+    const handleMouseOver = (e) => {
+      if (e.target.closest('a') || e.target.closest('button') || e.target.closest('.neon-btn')) {
+        setIsHovering(true);
+      } else {
+        setIsHovering(false);
+      }
+    };
+    
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseover', handleMouseOver);
     return () => {
-      window.removeEventListener('mousemove', moveGlow);
-      if (glow) glow.remove();
-      obs.disconnect();
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseover', handleMouseOver);
     };
   }, []);
 
   return (
+    <>
+      <motion.div
+        className="cursor-ring"
+        animate={{
+          x: mousePos.x - 20,
+          y: mousePos.y - 20,
+          scale: isHovering ? 1.5 : 1,
+          borderColor: isHovering ? "#b026ff" : "#00f0ff",
+          backgroundColor: isHovering ? "rgba(176, 38, 255, 0.1)" : "transparent"
+        }}
+        transition={{ type: "spring", mass: 0.1, stiffness: 150, damping: 15 }}
+      />
+      <motion.div
+        className="mouse-glow"
+        animate={{ x: mousePos.x - 150, y: mousePos.y - 150 }}
+        transition={{ type: "tween", ease: "linear", duration: 0 }}
+      />
+    </>
+  );
+}
+
+function App() {
+  return (
     <Router>
+      <ScrollObserver />
+      <CustomCursor />
       <div className={styles.app}>
-        {/* The Cursed Video Background replaces MagicalBackground */}
+        <StarsCanvas />
         <MagicalBackground />
         {/* Grid Overlay for subtle texture */}
         <div className="grid-overlay"></div>
         
         <Navbar />
         <main className={styles.mainContent}>
-          <AnimatePresence mode="wait">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/achievements" element={<Achievements />} />
-            </Routes>
-          </AnimatePresence>
+          <AnimatedRoutes />
           <div className="wave-divider"></div>
         </main>
       </div>

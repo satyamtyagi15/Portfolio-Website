@@ -1,41 +1,75 @@
-.projects {
+.projectsContainer {
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  position: relative;
+}
+
+.header {
+  margin-bottom: 5rem;
+}
+
+.subTitle {
+  font-family: 'Inter', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #aaa;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .pageTitle {
-  font-size: 2rem;
+  font-size: 4rem;
+  font-weight: 800;
   margin-bottom: 1.5rem;
-  background: linear-gradient(135deg, #fff, #00f0ff);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  border-left: 4px solid #00f0ff;
-  padding-left: 1rem;
+  color: white;
+  text-shadow: 0 0 20px rgba(145, 94, 255, 0.5);
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
+.desc {
+  max-width: 700px;
+  color: #aaa;
+  font-size: 1.1rem;
+  line-height: 1.8;
 }
 
-/* For very large screens, limit to 3 columns */
-@media (min-width: 1200px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
+.timeline {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: 6rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(-50%);
+  z-index: 0;
+}
+
+.timelineItem {
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 1024px) {
+  .pageTitle {
+    font-size: 3rem;
   }
 }
 
-/* For tablets, 2 columns */
 @media (max-width: 768px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
+  .timeline::before {
+    left: 20px;
   }
-}
-
-/* For mobile, 1 column */
-@media (max-width: 550px) {
-  .grid {
-    grid-template-columns: 1fr;
+  .desc {
+    font-size: 1rem;
   }
 }

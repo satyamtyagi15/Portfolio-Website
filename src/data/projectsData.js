@@ -18,15 +18,15 @@ export const projectsData = [
   },
   {
     id: 2,
-    title: "AI Security Shield – Full‑Stack Blockchain & Web3 Smart Contract Security Platform",
-    category: "AI / Blockchain / Security",
-    shortDesc: "Full‑stack platform that audits smart contracts using AI + on‑chain heuristics.",
-    fullDesc: "Combines static analysis and AI to detect vulnerabilities in Solidity smart contracts. Provides severity‑ranked findings, patch suggestions, and exportable PDF reports. Connects via WalletConnect to fetch on‑chain contract bytecode.",
-    tech: "React, Node.js, Solidity, ethers.js, OpenAI, MongoDB",
+    title: "AI Security Shield – Full-Stack MERN & AI Powered Security Platform",
+    category: "AI / Full-Stack / Security",
+    shortDesc: "Full-stack platform that audits code vulnerabilities using AI + static heuristics.",
+    fullDesc: "Combines static analysis and AI to detect vulnerabilities in codebases. Provides severity-ranked findings, patch suggestions, and exportable PDF reports. Uses secure authentication and real-time dashboard.",
+    tech: "React, Node.js, Express, MongoDB, OpenAI",
     highlights: [
       "Hybrid AI + static analysis scanner",
-      "Severity‑ranked findings & patches",
-      "Wallet connect + on‑chain context",
+      "Severity-ranked findings & patches",
+      "Real-time analytics dashboard",
       "Exportable PDF audit reports"
     ],
     videoId: "0V2rY9-0W7E",

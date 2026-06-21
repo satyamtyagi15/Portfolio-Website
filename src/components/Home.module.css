@@ -125,6 +125,11 @@
   letter-spacing: 1px;
 }
 
+.typedText :global(.Typewriter__cursor) {
+  -webkit-text-fill-color: #00f0ff;
+  color: #00f0ff;
+}
+
 .waveUnderline {
   width: 80px;
   height: 3px;

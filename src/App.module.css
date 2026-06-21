@@ -7,23 +7,15 @@
 
 .mainContent {
   flex: 1;
-  margin-left: 0;      /* default no margin, will be added when sidebar open */
-  padding: 2rem;
-  transition: margin-left 0.3s ease;
+  padding: 2rem 2rem 2rem 100px; /* 100px left padding to avoid the floating dock */
   position: relative;
   z-index: 10;
   width: 100%;
 }
 
-/* When sidebar is open on desktop (class added by Navbar) */
-body.sidebar-open .mainContent {
-  margin-left: 280px;
-}
-
-/* Mobile: never add margin, content always full width */
+/* Mobile: remove left padding and add bottom padding to avoid bottom dock */
 @media (max-width: 768px) {
   .mainContent {
-    margin-left: 0;
-    padding: 5rem 1rem 2rem;
+    padding: 2rem 1rem 100px 1rem;
   }
 }

@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import * as THREE from 'three';
+import Typewriter from 'typewriter-effect';
+import { Tilt } from 'react-tilt';
 import styles from './Home.module.css';
 
 const Home = () => {
@@ -8,114 +10,176 @@ const Home = () => {
 
   useEffect(() => {
     const container = containerRef.current;
+    if (!container) return;
+
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
-    camera.position.set(3, 2, 4);
-    camera.lookAt(0, 0, 0);
+    camera.position.set(0, 0, 6);
     
-    const renderer = new THREE.WebGLRenderer({ alpha: true });
-    renderer.setSize(320, 320);
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setSize(350, 350);
+    renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setClearColor(0x000000, 0);
     container.appendChild(renderer.domElement);
     
-    // 1. Central neon wireframe cube
-    const cubeGeo = new THREE.BoxGeometry(1, 1, 1);
-    const edgesGeo = new THREE.EdgesGeometry(cubeGeo);
-    const cubeWire = new THREE.LineSegments(edgesGeo, new THREE.LineBasicMaterial({ color: 0x00f0ff }));
-    const innerCubeMat = new THREE.MeshBasicMaterial({ color: 0x00f0ff, transparent: true, opacity: 0.1 });
-    const innerCube = new THREE.Mesh(cubeGeo, innerCubeMat);
-    scene.add(innerCube);
-    scene.add(cubeWire);
-    
-    // 2. Floating sphere with wireframe
-    const sphereGeo = new THREE.SphereGeometry(0.6, 16, 16);
-    const sphereEdges = new THREE.EdgesGeometry(sphereGeo);
-    const sphereWire = new THREE.LineSegments(sphereEdges, new THREE.LineBasicMaterial({ color: 0xb026ff }));
-    const sphereInnerMat = new THREE.MeshBasicMaterial({ color: 0xb026ff, transparent: true, opacity: 0.08 });
-    const innerSphere = new THREE.Mesh(sphereGeo, sphereInnerMat);
-    sphereWire.position.set(1.2, -0.5, 0.8);
-    innerSphere.position.set(1.2, -0.5, 0.8);
-    scene.add(innerSphere);
-    scene.add(sphereWire);
-    
-    // 3. Torus knot (advanced 3D shape)
-    const knotGeo = new THREE.TorusKnotGeometry(0.5, 0.12, 100, 16, 3, 4);
-    const knotEdges = new THREE.EdgesGeometry(knotGeo);
-    const knotWire = new THREE.LineSegments(knotEdges, new THREE.LineBasicMaterial({ color: 0x4dffb8 }));
-    const knotMat = new THREE.MeshBasicMaterial({ color: 0x4dffb8, transparent: true, opacity: 0.1 });
-    const knotMesh = new THREE.Mesh(knotGeo, knotMat);
-    knotWire.position.set(-1.2, 0.6, -0.5);
-    knotMesh.position.set(-1.2, 0.6, -0.5);
-    scene.add(knotMesh);
-    scene.add(knotWire);
-    
-    // 4. Additional ring (floating)
-    const ringGeo = new THREE.TorusGeometry(0.7, 0.05, 32, 100);
-    const ringEdges = new THREE.EdgesGeometry(ringGeo);
-    const ringWire = new THREE.LineSegments(ringEdges, new THREE.LineBasicMaterial({ color: 0x2c6bff }));
-    ringWire.position.set(0.5, 1.1, -1);
-    scene.add(ringWire);
-    
-    // 5. Floating particles around entire scene (500 particles)
-    const particleCount = 500;
+    // Lights for Physical Materials
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+    scene.add(ambientLight);
+    const dirLight = new THREE.DirectionalLight(0xb026ff, 2.5);
+    dirLight.position.set(5, 5, 5);
+    scene.add(dirLight);
+    const pointLight = new THREE.PointLight(0x00f0ff, 3, 10);
+    pointLight.position.set(-2, -2, 2);
+    scene.add(pointLight);
+
+    // 1. Crystal Core (MeshPhysicalMaterial)
+    const coreGeo = new THREE.IcosahedronGeometry(0.8, 0);
+    const coreMat = new THREE.MeshPhysicalMaterial({
+      color: 0x00f0ff,
+      transmission: 0.9,
+      opacity: 1,
+      metalness: 0.1,
+      roughness: 0.1,
+      ior: 1.5,
+      thickness: 0.5,
+    });
+    const core = new THREE.Mesh(coreGeo, coreMat);
+    scene.add(core);
+
+    // 2. Outer Wireframe Shell
+    const shellGeo = new THREE.IcosahedronGeometry(1.2, 1);
+    const shellEdges = new THREE.EdgesGeometry(shellGeo);
+    const shellMat = new THREE.LineBasicMaterial({ color: 0xb026ff, transparent: true, opacity: 0.6 });
+    const shell = new THREE.LineSegments(shellEdges, shellMat);
+    scene.add(shell);
+
+    // 3. Floating Rings
+    const ringGeo1 = new THREE.TorusGeometry(1.8, 0.015, 16, 100);
+    const ringMat1 = new THREE.MeshBasicMaterial({ color: 0x4dffb8 });
+    const ring1 = new THREE.Mesh(ringGeo1, ringMat1);
+    ring1.rotation.x = Math.PI / 2;
+    scene.add(ring1);
+
+    const ringGeo2 = new THREE.TorusGeometry(2.1, 0.015, 16, 100);
+    const ringMat2 = new THREE.MeshBasicMaterial({ color: 0x00f0ff });
+    const ring2 = new THREE.Mesh(ringGeo2, ringMat2);
+    ring2.rotation.y = Math.PI / 2;
+    scene.add(ring2);
+
+    // 4. Particle Field
+    const particleCount = 800;
     const particlesGeo = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
-    for (let i = 0; i < particleCount; i++) {
-      positions[i*3] = (Math.random() - 0.5) * 4.5;
-      positions[i*3+1] = (Math.random() - 0.5) * 4;
-      positions[i*3+2] = (Math.random() - 0.5) * 4.5;
+    for (let i = 0; i < particleCount * 3; i++) {
+      positions[i] = (Math.random() - 0.5) * 8;
     }
     particlesGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    const particlesMat = new THREE.PointsMaterial({ color: 0x00f0ff, size: 0.02 });
+    const particlesMat = new THREE.PointsMaterial({ color: 0x00f0ff, size: 0.03, transparent: true, opacity: 0.6 });
     const particles = new THREE.Points(particlesGeo, particlesMat);
     scene.add(particles);
     
+    // Add mouse interaction
+    let mouseX = 0;
+    let mouseY = 0;
+    const windowHalfX = window.innerWidth / 2;
+    const windowHalfY = window.innerHeight / 2;
+
+    const onDocumentMouseMove = (event) => {
+      mouseX = (event.clientX - windowHalfX) * 0.001;
+      mouseY = (event.clientY - windowHalfY) * 0.001;
+    };
+
+    document.addEventListener('mousemove', onDocumentMouseMove, false);
+
     let time = 0;
     const animate = () => {
       requestAnimationFrame(animate);
-      time += 0.008;
-      cubeWire.rotation.y = time;
-      cubeWire.rotation.x = time * 0.5;
-      innerCube.rotation.y = time;
-      innerCube.rotation.x = time * 0.5;
-      sphereWire.rotation.x = time * 0.7;
-      sphereWire.rotation.z = time * 0.3;
-      innerSphere.rotation.x = time * 0.7;
-      innerSphere.rotation.z = time * 0.3;
-      knotWire.rotation.y = time * 0.9;
-      knotWire.rotation.x = time * 0.4;
-      knotMesh.rotation.y = time * 0.9;
-      knotMesh.rotation.x = time * 0.4;
-      ringWire.rotation.x = time * 0.5;
-      ringWire.rotation.z = time * 0.8;
-      particles.rotation.y = time * 0.1;
-      particles.rotation.x = time * 0.15;
+      time += 0.005;
+      
+      core.rotation.y = time * 1.5;
+      core.rotation.x = time * 0.8;
+      
+      shell.rotation.y = -time * 1.2;
+      shell.rotation.z = time * 0.5;
+      
+      ring1.rotation.y = time * 0.5;
+      ring1.rotation.z = time * 0.8;
+      
+      ring2.rotation.x = -time * 0.4;
+      ring2.rotation.z = time * 0.6;
+      
+      particles.rotation.y = time * 0.2;
+      particles.rotation.x = time * 0.1;
+
+      // Mouse Parallax Effect
+      scene.rotation.y += 0.05 * (mouseX - scene.rotation.y);
+      scene.rotation.x += 0.05 * (mouseY - scene.rotation.x);
+
       renderer.render(scene, camera);
     };
     animate();
     
     return () => {
+      document.removeEventListener('mousemove', onDocumentMouseMove);
       renderer.dispose();
       if (container && renderer.domElement) container.removeChild(renderer.domElement);
     };
   }, []);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2, delayChildren: 0.3 }
+    },
+    exit: { opacity: 0, scale: 0.9, filter: "blur(15px)", transition: { duration: 0.5, ease: "easeInOut" } }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 80, scale: 0.8, rotateX: 25, filter: "blur(15px)" },
+    show: { 
+      opacity: 1, 
+      y: 0, 
+      scale: 1, 
+      rotateX: 0, 
+      filter: "blur(0px)",
+      transition: { type: "spring", stiffness: 100, damping: 15, mass: 1 } 
+    }
+  };
+
   return (
     <motion.div 
       className={styles.home}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
+      variants={containerVariants}
+      initial="hidden"
+      animate="show"
+      exit="exit"
+      style={{ perspective: 1000 }}
     >
       <div className={styles.hero}>
         <div className={styles.glowingOrb}></div>
         
         <div className={styles.heroContent}>
-          <div className={styles.textSection}>
+          <motion.div className={styles.textSection} variants={itemVariants}>
             <h1 className={`${styles.name} glitch`}>Satyam <span className={styles.highlight}>Tyagi</span></h1>
             <div className={styles.taglineWrapper}>
-              <div className={styles.typedText}>DSA Enthusiast | MERN Stack Dev | AI/ML Explorer | Hackathon RunnerUp</div>
+              <div className={styles.typedText}>
+                <Typewriter
+                  options={{
+                    strings: [
+                      'DSA Enthusiast',
+                      'MERN Stack Dev',
+                      'AI/ML Explorer',
+                      'Hackathon RunnerUp',
+                      'Full-Stack Developer'
+                    ],
+                    autoStart: true,
+                    loop: true,
+                    delay: 50,
+                    deleteSpeed: 30,
+                  }}
+                />
+              </div>
               <div className={styles.waveUnderline}></div>
             </div>
             <p className={styles.bio}>
@@ -134,56 +198,64 @@ const Home = () => {
             <div className={styles.openToWork}>
               <span className={styles.otwBadge}>🔓 OPEN TO WORK</span> – Full‑time / Intern / Contract (Remote/Hybrid)
             </div>
-          </div>
+          </motion.div>
           
-          <div className={styles.visualSection}>
+          <motion.div className={styles.visualSection} variants={itemVariants}>
             <div className={styles.profileImageContainer}>
               <img src="/assets/profile.jpg" alt="Satyam Tyagi" className={styles.profilePic} />
               <div className={styles.profileGlow}></div>
             </div>
             <div ref={containerRef} className={styles.cubeContainer}></div>
-          </div>
+          </motion.div>
         </div>
 
         {/* New: What I Do Section */}
-        <div className={`${styles.services} reveal`}>
+        <motion.div className={styles.services} variants={itemVariants}>
           <h3 className={styles.sectionTitle2}>⚡ What I Do</h3>
           <div className={styles.serviceGrid}>
-            <div className={styles.serviceCard}>
-              <div className={styles.serviceIcon}>🌐</div>
-              <h4>Full‑Stack Development</h4>
-              <p>End‑to‑end web apps with MERN, Next.js, Go, PostgreSQL, Redis.</p>
-            </div>
-            <div className={styles.serviceCard}>
-              <div className={styles.serviceIcon}>🤖</div>
-              <h4>AI & LLM Integration</h4>
-              <p>RAG pipelines, OpenAI APIs, prompt engineering, AI‑powered features.</p>
-            </div>
-            <div className={styles.serviceCard}>
-              <div className={styles.serviceIcon}>⛓️</div>
-              <h4>Web3 & Blockchain</h4>
-              <p>Smart contracts, dApps, Solidity, ethers.js, Hardhat deployments.</p>
-            </div>
-            <div className={styles.serviceCard}>
-              <div className={styles.serviceIcon}>🎮</div>
-              <h4>Gaming & Creative</h4>
-              <p>Live streaming, video editing, OBS overlays, interactive UI/UX.</p>
-            </div>
+            <Tilt options={{ max: 25, scale: 1.05, speed: 400 }}>
+              <div className={styles.serviceCard}>
+                <div className={styles.serviceIcon}>🌐</div>
+                <h4>Full‑Stack Development</h4>
+                <p>End‑to‑end web apps with MERN, Next.js, Go, PostgreSQL, Redis.</p>
+              </div>
+            </Tilt>
+            <Tilt options={{ max: 25, scale: 1.05, speed: 400 }}>
+              <div className={styles.serviceCard}>
+                <div className={styles.serviceIcon}>🤖</div>
+                <h4>AI & LLM Integration</h4>
+                <p>RAG pipelines, OpenAI APIs, prompt engineering, AI‑powered features.</p>
+              </div>
+            </Tilt>
+            <Tilt options={{ max: 25, scale: 1.05, speed: 400 }}>
+              <div className={styles.serviceCard}>
+                <div className={styles.serviceIcon}>🌐</div>
+                <h4>Modern Web Architectures</h4>
+                <p>Scalable APIs, microservices, progressive web apps, secure authentication.</p>
+              </div>
+            </Tilt>
+            <Tilt options={{ max: 25, scale: 1.05, speed: 400 }}>
+              <div className={styles.serviceCard}>
+                <div className={styles.serviceIcon}>🎮</div>
+                <h4>Gaming & Creative</h4>
+                <p>Live streaming, video editing, OBS overlays, interactive UI/UX.</p>
+              </div>
+            </Tilt>
           </div>
-        </div>
+        </motion.div>
 
         {/* Tech Stack Badges */}
-        <div className={`${styles.techStack} reveal`}>
+        <motion.div className={styles.techStack} variants={itemVariants}>
           <h3 className={styles.sectionTitle2}>🧰 Tech Stack I Use</h3>
           <div className={styles.techBadges}>
-            {["React","Node.js","Express","MongoDB","Next.js","TypeScript","Go","Python","Solidity","Tailwind","Docker","GraphQL"].map(tech => (
+            {["React","Node.js","Express","MongoDB","Next.js","TypeScript","Go","Python","Redis","Tailwind","Docker","GraphQL"].map(tech => (
               <span key={tech} className={styles.techBadge}>{tech}</span>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Recent Highlights */}
-        <div className={`${styles.highlights} reveal`}>
+        <motion.div className={styles.highlights} variants={itemVariants}>
           <h3 className={styles.sectionTitle2}>🏅 Recent Highlights</h3>
           <div className={styles.highlightList}>
             <div><span>🏆</span> RunnerUp @ HackIndia AI & DeepTech 2025</div>
@@ -191,12 +263,12 @@ const Home = () => {
             <div><span>🚀</span> GSSoC 2026 Contributor (AI Agents track)</div>
             <div><span>🎤</span> Hackathon Ambassador @ HackHazards 2026</div>
           </div>
-        </div>
+        </motion.div>
 
         {/* CTA Button */}
-        <div className={`${styles.cta} reveal`}>
+        <motion.div className={styles.cta} variants={itemVariants}>
           <a href="/contact" className="neon-btn" style={{ padding: '0.8rem 2.5rem', fontSize: '1.1rem' }}>📩 Let’s Build Something →</a>
-        </div>
+        </motion.div>
       </div>
     </motion.div>
   );
