@@ -189,6 +189,7 @@ const Home = () => {
               <a href="https://github.com/satyamtyagi15" target="_blank" className="neon-btn">GitHub</a>
               <a href="https://www.linkedin.com/in/satyam-tyagi1s/" target="_blank" className="neon-btn">LinkedIn</a>
               <a href="https://www.youtube.com/@astroknight.15" target="_blank" className="neon-btn">YouTube</a>
+              <a href="/Satyam-Tyagi-Resume.pdf" target="_blank" download className="neon-btn" style={{ borderColor: '#00f0ff', boxShadow: '0 0 10px #00f0ff' }}>📄 Resume</a>
             </div>
             <div className={styles.stats}>
               <div className={styles.statItem}><span className={styles.statNumber}>9+</span><span className={styles.statLabel}>Shipped Projects</span></div>
