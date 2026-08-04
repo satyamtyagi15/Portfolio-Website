@@ -107,6 +107,8 @@
   text-decoration: none;
   transform: translateY(20px);
   transition: all 0.3s ease;
+  position: relative;
+  z-index: 100;
 }
 
 .card:hover .playBtn {
@@ -223,6 +225,9 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  position: relative;
+  z-index: 100;
+  transform: translateZ(10px);
 }
 
 .repoLink {
@@ -255,6 +260,9 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  position: relative;
+  z-index: 100;
+  transform: translateZ(10px);
 }
 
 .liveLink:hover {
