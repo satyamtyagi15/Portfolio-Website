@@ -42,12 +42,12 @@
 }
 
 .card {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(15, 15, 30, 0.75); /* Darker fallback since blur is removed to fix Chromium bug */
   border-radius: 20px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.05);
   transition: all 0.4s ease;
-  backdrop-filter: blur(10px);
+  /* Removed backdrop-filter to fix 3D hit testing bug on links */
 }
 
 /* Hover Effects */
@@ -227,7 +227,6 @@
   gap: 4px;
   position: relative;
   z-index: 100;
-  transform: translateZ(10px);
 }
 
 .repoLink {
@@ -262,7 +261,6 @@
   gap: 4px;
   position: relative;
   z-index: 100;
-  transform: translateZ(10px);
 }
 
 .liveLink:hover {
