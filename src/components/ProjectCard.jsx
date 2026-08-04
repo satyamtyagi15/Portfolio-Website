@@ -21,7 +21,15 @@ const ProjectCard = ({ project, index }) => {
           <div className={styles.imageWrapper}>
             <img src={imgUrl} alt={project.title} className={styles.projectImg} />
             <div className={styles.imageOverlay}>
-              <a href={project.youtubeUrl} target="_blank" rel="noopener noreferrer" className={styles.playBtn}>
+              <a 
+                href={project.youtubeUrl} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className={styles.playBtn}
+                onPointerDown={(e) => e.stopPropagation()}
+                onTouchStart={(e) => e.stopPropagation()}
+                onClick={(e) => e.stopPropagation()}
+              >
                 <div className={styles.playIcon}>▶</div>
                 <span>Watch Video</span>
               </a>
@@ -40,7 +48,12 @@ const ProjectCard = ({ project, index }) => {
               ))}
             </div>
 
-            <div className={styles.links}>
+            <div 
+              className={styles.links}
+              onPointerDown={(e) => e.stopPropagation()}
+              onTouchStart={(e) => e.stopPropagation()}
+              onClick={(e) => e.stopPropagation()}
+            >
               <a href={project.githubLink} target="_blank" rel="noopener noreferrer" className={styles.repoLink}>
                 📁 GitHub
               </a>

@@ -91,7 +91,15 @@ const Projects = () => {
 
   const itemVariants = {
     hidden: { opacity: 0, y: 80, scale: 0.8, rotateX: 30, filter: "blur(15px)" },
-    show: { opacity: 1, y: 0, scale: 1, rotateX: 0, filter: "blur(0px)", transition: { type: "spring", stiffness: 90, damping: 12, mass: 1 } }
+    show: { 
+      opacity: 1, 
+      y: 0, 
+      scale: 1, 
+      rotateX: 0, 
+      filter: "blur(0px)", 
+      transition: { type: "spring", stiffness: 90, damping: 12, mass: 1 },
+      transitionEnd: { filter: "", transform: "none" }
+    }
   };
 
   return (
@@ -101,7 +109,6 @@ const Projects = () => {
       initial="hidden"
       animate="show"
       exit="exit"
-      style={{ perspective: 1000 }}
     >
       <motion.div className={styles.header} variants={itemVariants} style={{ position: 'relative' }}>
         <p className={styles.subTitle}>My Work</p>

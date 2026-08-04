@@ -91,7 +91,6 @@
   align-items: center;
   opacity: 0;
   transition: all 0.3s ease;
-  backdrop-filter: blur(2px);
 }
 
 .card:hover .imageOverlay {
