@@ -48,7 +48,8 @@ export const projectsData = [
     ],
     videoId: "BDT014KjFpc",
     youtubeUrl: "https://youtu.be/BDT014KjFpc",
-    githubLink: "https://github.com/satyamtyagi15/calculator"
+    githubLink: "https://github.com/satyamtyagi15/calculator",
+    liveLink: "https://calculator-flax-two-66.vercel.app/"
   },
   {
     id: 4,
@@ -65,7 +66,8 @@ export const projectsData = [
     ],
     videoId: "yaUN8HQsMgM",
     youtubeUrl: "https://youtu.be/yaUN8HQsMgM",
-    githubLink: "https://github.com/satyamtyagi15/advanced-to-do-list"
+    githubLink: "https://github.com/satyamtyagi15/advanced-to-do-list",
+    liveLink: "https://advanced-to-do-list-dun.vercel.app/"
   },
   {
     id: 5,
@@ -82,7 +84,8 @@ export const projectsData = [
     ],
     videoId: "lDbvOFMaZcQ",
     youtubeUrl: "https://youtu.be/lDbvOFMaZcQ",
-    githubLink: "https://github.com/satyamtyagi15/Weather-App"
+    githubLink: "https://github.com/satyamtyagi15/Weather-App",
+    liveLink: "https://weather-app-by-satyamtyagi.netlify.app/"
   },
   {
     id: 6,
@@ -116,7 +119,8 @@ export const projectsData = [
     ],
     videoId: "QheBWuI1LWI",
     youtubeUrl: "https://youtu.be/QheBWuI1LWI",
-    githubLink: "https://basic-security-system-by-satyam-tyagi.netlify.app/"
+    githubLink: "https://basic-security-system-by-satyam-tyagi.netlify.app/",
+    liveLink: "https://basic-security-system-by-satyam-tyagi.netlify.app/"
   },
   {
     id: 8,
@@ -133,7 +137,8 @@ export const projectsData = [
     ],
     videoId: "hX7-Q3Rl1fg",
     youtubeUrl: "https://youtu.be/hX7-Q3Rl1fg",
-    githubLink: "https://github.com/satyamtyagi15/Bella-Vista-Restaurant"
+    githubLink: "https://github.com/satyamtyagi15/Bella-Vista-Restaurant",
+    liveLink: "https://bella-vista-restaurant-by-satyamtyagi.netlify.app/"
   },
   {
     id: 9,
@@ -150,6 +155,7 @@ export const projectsData = [
     ],
     videoId: "J-U8i8DmhaQ",
     youtubeUrl: "https://youtu.be/J-U8i8DmhaQ",
-    githubLink: "https://zomatobysatyamtyagi.netlify.app/"
+    githubLink: "https://zomatobysatyamtyagi.netlify.app/",
+    liveLink: "https://zomatobysatyamtyagi.netlify.app/"
   }
 ];

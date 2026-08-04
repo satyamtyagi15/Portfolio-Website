@@ -243,6 +243,24 @@
   background: rgba(255, 0, 0, 0.2);
 }
 
+.liveLink {
+  color: #00ff88;
+  background: rgba(0, 255, 136, 0.1);
+  font-size: 0.85rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.liveLink:hover {
+  background: rgba(0, 255, 136, 0.2);
+}
+
 @media (max-width: 1024px) {
   .tiltContainer {
     width: 48%;

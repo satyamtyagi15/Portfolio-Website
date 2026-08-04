@@ -2,6 +2,7 @@ import React, { Suspense, useRef } from 'react';
 import { Canvas, useFrame, useLoader } from '@react-three/fiber';
 import { OrbitControls, Environment, Float, ContactShadows, Stars, Html } from '@react-three/drei';
 import * as THREE from 'three';
+import { useInView } from 'framer-motion';
 
 // 1. Sci-Fi Atom Model - Replaces Cyber Cube
 function AtomModel({ color }) {
@@ -334,6 +335,8 @@ function HolographicKnot({ color }) {
 }
 
 function SciFiObject({ index }) {
+  const containerRef = useRef(null);
+  const isInView = useInView(containerRef, { margin: "200px" });
   const colors = ["#00f0ff", "#b026ff", "#4dffb8", "#ffd700", "#ff3366"];
   const color = colors[index % colors.length];
 
@@ -354,23 +357,25 @@ function SciFiObject({ index }) {
   }
 
   return (
-    <div style={{ width: '100%', height: '400px', cursor: 'grab' }}>
-      <Canvas shadows camera={{ position: [0, 0, 5.5], fov: 45 }}>
-        <ambientLight intensity={0.4} />
-        <spotLight position={[10, 10, 10]} angle={0.2} penumbra={1} intensity={2} castShadow />
-        <pointLight position={[-10, -10, -10]} intensity={0.5} />
-        
-        <Suspense fallback={<Html center><div style={{color: '#00f0ff', fontFamily: 'monospace'}}>Loading 3D...</div></Html>}>
-          <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.5}>
-             {renderModel()}
-          </Float>
-          <Environment preset="city" />
-          <ContactShadows position={[0, -2.5, 0]} opacity={0.6} scale={10} blur={2.5} far={4} color="#000000" />
-          <Stars radius={100} depth={50} count={2000} factor={4} saturation={0} fade speed={1} />
-        </Suspense>
-        
-        <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={1} />
-      </Canvas>
+    <div ref={containerRef} style={{ width: '100%', height: '400px', cursor: 'grab' }}>
+      {isInView && (
+        <Canvas shadows camera={{ position: [0, 0, 5.5], fov: 45 }}>
+          <ambientLight intensity={0.4} />
+          <spotLight position={[10, 10, 10]} angle={0.2} penumbra={1} intensity={2} castShadow />
+          <pointLight position={[-10, -10, -10]} intensity={0.5} />
+          
+          <Suspense fallback={<Html center><div style={{color: '#00f0ff', fontFamily: 'monospace'}}>Loading 3D...</div></Html>}>
+            <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.5}>
+               {renderModel()}
+            </Float>
+            <Environment preset="city" />
+            <ContactShadows position={[0, -2.5, 0]} opacity={0.6} scale={10} blur={2.5} far={4} color="#000000" />
+            <Stars radius={100} depth={50} count={2000} factor={4} saturation={0} fade speed={1} />
+          </Suspense>
+          
+          <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={1} />
+        </Canvas>
+      )}
     </div>
   );
 }

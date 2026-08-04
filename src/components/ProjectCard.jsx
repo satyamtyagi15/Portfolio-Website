@@ -47,6 +47,11 @@ const ProjectCard = ({ project, index }) => {
               <a href={project.youtubeUrl} target="_blank" rel="noopener noreferrer" className={styles.youtubeLink}>
                 ▶️ YouTube
               </a>
+              {project.liveLink && (
+                <a href={project.liveLink} target="_blank" rel="noopener noreferrer" className={styles.liveLink}>
+                  🌐 Live
+                </a>
+              )}
             </div>
           </div>
           
