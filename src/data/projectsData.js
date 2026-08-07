@@ -102,7 +102,8 @@ export const projectsData = [
     ],
     videoId: "K2I1UoOntxc",
     youtubeUrl: "https://youtu.be/K2I1UoOntxc",
-    githubLink: "https://github.com/satyamtyagi15/Rock-Paper-Scissors-Lizard-Spock"
+    githubLink: "https://github.com/satyamtyagi15/Rock-Paper-Scissors-Lizard-Spock",
+    liveLink: "https://rock-paper-scissors-lizard-spock-satyam.vercel.app/"
   },
   {
     id: 7,
