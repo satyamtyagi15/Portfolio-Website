@@ -19,7 +19,14 @@ const ProjectCard = ({ project, index }) => {
         <div className={styles.card}>
           
           <div className={styles.imageWrapper}>
-            <img src={imgUrl} alt={project.title} className={styles.projectImg} />
+            <a 
+              href={project.youtubeUrl || project.liveLink || '#'} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              style={{ display: 'block', width: '100%', height: '100%' }}
+            >
+              <img src={imgUrl} alt={project.title} className={styles.projectImg} />
+            </a>
             {project.youtubeUrl && (
               <div className={styles.imageOverlay}>
                 <a 
