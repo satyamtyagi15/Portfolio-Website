@@ -158,5 +158,18 @@ export const projectsData = [
     youtubeUrl: "https://youtu.be/J-U8i8DmhaQ",
     githubLink: "https://zomatobysatyamtyagi.netlify.app/",
     liveLink: "https://zomatobysatyamtyagi.netlify.app/"
+  },
+  {
+    id: 10,
+    title: "COLL-CONNECT",
+    category: "Web Application",
+    shortDesc: "COLL-CONNECT Web Application",
+    fullDesc: "COLL-CONNECT Web Application.",
+    tech: "React, Node.js",
+    highlights: [
+      "Collaborative Platform"
+    ],
+    githubLink: "https://github.com/satyamtyagi15/COLL-CONNECT",
+    liveLink: "https://coll-connect.vercel.app/"
   }
 ];
