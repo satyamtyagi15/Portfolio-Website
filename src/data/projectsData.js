@@ -12,7 +12,7 @@ export const projectsData = [
       "Real-time Touchless Vitals Extractor",
       "Sanjeevani Multi-Agent Neural Swarm"
     ],
-    image: "https://image.thum.io/get/width/1200/crop/800/https://sanjeevani-psi.vercel.app/",
+    image: "/assets/sanjeevani-ai.png",
     githubLink: "https://github.com/satyamtyagi15/SANJEEVANI-AI",
     liveLink: "https://sanjeevani-psi.vercel.app/"
   },
