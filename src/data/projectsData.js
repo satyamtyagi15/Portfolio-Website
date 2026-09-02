@@ -1,5 +1,22 @@
 export const projectsData = [
   {
+    id: 11,
+    title: "SANJEEVANI AI",
+    category: "AI / Full-Stack / Medical",
+    shortDesc: "The World's Most Advanced Multimodal Clinical AI Intelligence OS.",
+    fullDesc: "Sanjeevani AI is a production-ready Medical AI OS designed for ER triage, psychiatric evaluation, and continuous physiological monitoring. It uses a vast array of specialized LLMs, DSP algorithms, and Computer Vision models running locally in-browser via WebAssembly.",
+    tech: "React, WebGL, WebAudio, Node.js, Express, MongoDB, OpenRouter",
+    highlights: [
+      "Duchenne Multimodal Pain Engine",
+      "Psychological Art Therapy Engine",
+      "Real-time Touchless Vitals Extractor",
+      "Sanjeevani Multi-Agent Neural Swarm"
+    ],
+    image: "https://image.thum.io/get/width/1200/crop/800/https://sanjeevani-psi.vercel.app/",
+    githubLink: "https://github.com/satyamtyagi15/SANJEEVANI-AI",
+    liveLink: "https://sanjeevani-psi.vercel.app/"
+  },
+  {
     id: 10,
     title: "Coll-Connect",
     category: "Full-Stack / Social",
