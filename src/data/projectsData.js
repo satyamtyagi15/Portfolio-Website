@@ -1,5 +1,22 @@
 export const projectsData = [
   {
+    id: 10,
+    title: "Coll-Connect",
+    category: "Full-Stack / Social",
+    shortDesc: "Real-time social communication and networking platform with instant messaging and video rooms.",
+    fullDesc: "Coll-Connect is a real-time social platform built with the MERN stack and WebSockets. It features instant messaging with typing indicators, video rooms, an anonymous Whisper Board, and secure Google OAuth & JWT authentication.",
+    tech: "React, Node.js, Express, MongoDB, Socket.io, TailwindCSS",
+    highlights: [
+      "Real-Time Messaging & Video Rooms",
+      "Whisper Board & Friend System",
+      "Secure JWT & Google OAuth",
+      "Profile & Media Management"
+    ],
+    image: "https://image.thum.io/get/width/1200/crop/800/https://coll-connect.vercel.app/",
+    githubLink: "https://github.com/satyamtyagi15/COLL-CONNECT",
+    liveLink: "https://coll-connect.vercel.app/"
+  },
+  {
     id: 1,
     title: "AI EdTech Platform",
     category: "AI / Full-Stack / EdTech",
@@ -158,18 +175,5 @@ export const projectsData = [
     youtubeUrl: "https://youtu.be/J-U8i8DmhaQ",
     githubLink: "https://zomatobysatyamtyagi.netlify.app/",
     liveLink: "https://zomatobysatyamtyagi.netlify.app/"
-  },
-  {
-    id: 10,
-    title: "COLL-CONNECT",
-    category: "Web Application",
-    shortDesc: "COLL-CONNECT Web Application",
-    fullDesc: "COLL-CONNECT Web Application.",
-    tech: "React, Node.js",
-    highlights: [
-      "Collaborative Platform"
-    ],
-    githubLink: "https://github.com/satyamtyagi15/COLL-CONNECT",
-    liveLink: "https://coll-connect.vercel.app/"
   }
 ];
